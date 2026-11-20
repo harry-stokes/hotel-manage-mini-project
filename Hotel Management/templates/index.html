@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Stay Hotel</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+<header>
+    <div class="logo">Grand Stay Hotel</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#availability">Rooms</a>
+        <a href="#register">Register</a>
+        <a href="#guests">Guests</a>
+        <a href="#history">History</a>
+        <a href="#parking">Parking</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+        <p class="subtitle">WELCOME TO GRAND STAY</p>
+        <h1>Comfort Meets Elegance</h1>
+        <p>Your relaxing stay begins here.</p>
+        <a href="#register" class="btn">Book Your Stay</a>
+    </div>
+</section>
+
+<main>
+
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<section id="availability">
+    <h2>Room Availability</h2>
+    <p class="section-text">Today's room occupancy</p>
+
+    <div class="room-container">
+
+        {% for key, room in availability.items %}
+        <div class="room-card">
+            <h3>{{ key|title }} Room</h3>
+            <p>Total Rooms: {{ room.total }}</p>
+            <p>Occupied: {{ room.occupied }}</p>
+            <p class="available">
+                Available: {{ room.available }}
+            </p>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <div class="pricing-box">
+        <h3>Room Pricing</h3>
+
+        <p>Single: ₹1500 weekday / ₹1800 weekend</p>
+        <p>Double: ₹2500 weekday / ₹3000 weekend</p>
+        <p>Deluxe: ₹4000 weekday / ₹4800 weekend</p>
+
+        <p class="price-note">
+            Weekend prices apply Friday, Saturday and Sunday.
+        </p>
+    </div>
+</section>
+
+<section id="register">
+    <h2>Guest Registration</h2>
+    <p class="section-text">Register a new hotel booking</p>
+
+    <form method="POST" id="bookingForm">
+        {% csrf_token %}
+
+        <label for="name">Guest Name</label>
+        <input type="text" name="name" id="name"
+               placeholder="Enter guest name" required>
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email"
+               placeholder="Enter email" required>
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" name="phone" id="phone"
+               placeholder="Enter phone number" required>
+
+        <label for="room_type">Room Type</label>
+        <select name="room_type" id="room_type" required>
+            <option value="">Select room</option>
+            <option value="single">Single Room</option>
+            <option value="double">Double Room</option>
+            <option value="deluxe">Deluxe Room</option>
+        </select>
+
+        <label for="checkin">Check-in</label>
+        <input type="date" name="checkin" id="checkin" required>
+
+        <label for="checkout">Check-out</label>
+        <input type="date" name="checkout" id="checkout" required>
+
+        <button type="submit">Register Booking</button>
+    </form>
+</section>
+
+<section id="guests">
+    <h2>Currently Staying Guests</h2>
+    <p class="section-text">Guests checked in today</p>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Room</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for guest in current_guests %}
+                <tr>
+                    <td>{{ guest.name }}</td>
+                    <td>{{ guest.email }}</td>
+                    <td>{{ guest.phone }}</td>
+                    <td>{{ guest.get_room_type_display }}</td>
+                    <td>{{ guest.checkin }}</td>
+                    <td>{{ guest.checkout }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">
+                        No guests are currently staying.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="history">
+    <h2>Booking History</h2>
+    <p class="section-text">All registered booking records</p>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Guest</th>
+                    <th>Phone</th>
+                    <th>Room</th>
+                    <th>Check-in</th>
+                    <th>Check-out</th>
+                    <th>Amount</th>
+                    <th>Booked On</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for booking in booking_history %}
+                <tr>
+                    <td>{{ booking.name }}</td>
+                    <td>{{ booking.phone }}</td>
+                    <td>{{ booking.get_room_type_display }}</td>
+                    <td>{{ booking.checkin }}</td>
+                    <td>{{ booking.checkout }}</td>
+                    <td>₹{{ booking.total_amount }}</td>
+                    <td>{{ booking.created_at|date:"d-m-Y" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">
+                        No booking records yet.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="parking">
+    <h2>Parking Availability</h2>
+    <p class="section-text">Parking slot status</p>
+
+    <div class="parking-container">
+        {% for slot in parking_slots %}
+            <div class="parking-slot
+                {% if slot.status == 'Vacant' %}free
+                {% else %}occupied{% endif %}">
+                <h3>{{ slot.name }}</h3>
+                <p>{{ slot.status }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+</main>
+
+<footer>
+    <p>Grand Stay Hotel</p>
+    <p>Hotel Management System</p>
+</footer>
+
+<script src="{% static 'script.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,354 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #f5f1eb;
+    background: #101a20;
+    line-height: 1.6;
+}
+
+/* Navigation */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 6%;
+    background: #101a20;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d7b98e;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #d7b98e;
+}
+
+/* Aesthetic background hero */
+
+.hero {
+    min-height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px;
+
+    background:
+        linear-gradient(rgba(10, 20, 25, 0.55),
+                        rgba(10, 20, 25, 0.75)),
+        url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=80");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: scroll;
+}
+
+.hero-content {
+    max-width: 750px;
+}
+
+.subtitle {
+    color: #d7b98e;
+    letter-spacing: 5px;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-size: clamp(35px, 6vw, 65px);
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 13px 28px;
+    background: #d7b98e;
+    color: #101a20;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #ead4b4;
+}
+
+/* Sections */
+
+section {
+    padding: 65px 6%;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 32px;
+    color: #d7b98e;
+    margin-bottom: 10px;
+}
+
+.section-text {
+    color: #c5c9cb;
+    margin-bottom: 30px;
+}
+
+/* Room cards */
+
+.room-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+}
+
+.room-card {
+    width: 280px;
+    padding: 30px;
+    border-radius: 15px;
+    background: #1c2a31;
+    border: 1px solid #33434b;
+    transition: transform 0.3s;
+}
+
+.room-card:hover {
+    transform: translateY(-5px);
+}
+
+.room-card h3 {
+    color: #d7b98e;
+    margin-bottom: 15px;
+}
+
+.room-card p {
+    margin: 10px;
+}
+
+.available {
+    color: #a6dfb5;
+    font-weight: bold;
+}
+
+/* Pricing */
+
+.pricing-box {
+    max-width: 600px;
+    margin: 35px auto;
+    padding: 30px;
+    border-radius: 15px;
+    background: #1c2a31;
+    border: 1px solid #33434b;
+}
+
+.pricing-box h3 {
+    color: #d7b98e;
+    margin-bottom: 15px;
+}
+
+.pricing-box p {
+    margin: 10px;
+}
+
+.price-note {
+    color: #d7b98e;
+}
+
+/* Registration form */
+
+form {
+    max-width: 550px;
+    margin: auto;
+    padding: 35px;
+    background: #1c2a31;
+    border: 1px solid #33434b;
+    border-radius: 18px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-top: 18px;
+    font-weight: bold;
+    color: #d7b98e;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #52636b;
+    background: #101a20;
+    color: white;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid #d7b98e;
+}
+
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    background: #d7b98e;
+    color: #101a20;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ead4b4;
+}
+
+/* Tables */
+
+.table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+}
+
+table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    background: #1c2a31;
+}
+
+th,
+td {
+    padding: 14px;
+    border: 1px solid #33434b;
+    text-align: center;
+}
+
+th {
+    color: #d7b98e;
+    background: #243740;
+}
+
+tr:hover {
+    background: #263a43;
+}
+
+/* Parking */
+
+.parking-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.parking-slot {
+    width: 130px;
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.parking-slot h3 {
+    font-size: 25px;
+}
+
+.parking-slot.free {
+    background: #203d35;
+    border: 1px solid #5e9b7a;
+    color: #c4efd5;
+}
+
+.parking-slot.occupied {
+    background: #473137;
+    border: 1px solid #a46b76;
+    color: #ffd2d7;
+}
+
+/* Messages */
+
+.messages {
+    max-width: 700px;
+    margin: 25px auto;
+    padding: 0 20px;
+}
+
+.messages p {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.success {
+    background: #203d35;
+    color: #c4efd5;
+}
+
+.error {
+    background: #473137;
+    color: #ffd2d7;
+}
+
+/* Footer */
+
+footer {
+    text-align: center;
+    padding: 30px;
+    background: #101a20;
+    color: #d7b98e;
+    border-top: 1px solid #33434b;
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        justify-content: center;
+    }
+
+    section {
+        padding: 45px 5%;
+    }
+
+    form {
+        padding: 25px;
+    }
+
+    .hero {
+        min-height: 400px;
+    }
+}
